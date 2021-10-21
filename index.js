@@ -4,7 +4,6 @@ const repository = require('./database/database')()
 var jwt = require('jsonwebtoken');
 
 const app = express()
-const port = 80
 
 app.use(express.json())
 
@@ -20,7 +19,7 @@ app.post('/login', async (req, res) => {
   var userdb = await usuarioModel.findOne({ login: user.login, senha: user.senha }).exec()
   if (userdb === null) 
   {  
-    return res.status(403).json({ autenticacao: false, message: 'Usuário não encontrado.', code: 'ERROR_0003' });
+    return res.status(403).json({ autenticacao: false, message: 'Usuário não encontrado.', code: 'ERROR_0001' });
   }
   else
   {
@@ -35,7 +34,7 @@ app.post('/login', async (req, res) => {
       return res.status(200).json(user);
   }
 } catch (err) {
-    return res.status(500).json({ code: 'ERROR_0007', message: err.message });
+    return res.status(400).json({ code: 'ERROR_0002', message: err.message });
 }
 
 
@@ -45,12 +44,12 @@ app.post('/login', async (req, res) => {
 function validarToken(req, res, next) {
   var token = req.headers['token'];
   if (!token) {
-    return res.status(401).json({ autenticacao: false, message: 'É necessário enviar o token.', code: 'ERROR_0001' });
+    return res.status(401).json({ autenticacao: false, message: 'É necessário enviar o token.', code: 'ERROR_0003' });
   }
   jwt.verify(token, keySecret, function (err, payload) {
     if (err) {
       console.log(err)
-      return res.status(500).json({ autenticacao: false, message: err.message, code: 'ERROR_0002' });
+      return res.status(500).json({ autenticacao: false, message: err.message, code: 'ERROR_0004' });
     }
     req.user = payload.user
     next();
