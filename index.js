@@ -27,7 +27,7 @@ app.post('/login', async (req, res) => {
       user.message = 'Login efetuado com sucesso'
       user.code = 'SUCESS_0001'
       var token = jwt.sign({ user }, keySecret, {
-        expiresIn: 3000
+        expiresIn: 12000
       });
       user.token = token
       return res.status(200).json(user);
@@ -57,6 +57,10 @@ app.use(function (err, req, res, next) {
   res.status(err.httpStatusCode || 500).json({ code: err.code, message: err.message })
 });
 
-app.listen(port, () => {
-  console.log(`Aplicação rodando em http://localhost:${port}`)
-})
+app.listen((process.env.PORT || 5000), function(){
+  console.log('listening on *:5000');
+});
+
+// app.listen(port, () => {
+//   console.log(`Aplicação rodando em http://localhost:${port}`)
+// })
