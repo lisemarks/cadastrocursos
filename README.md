@@ -19,3 +19,6 @@ $ npm start
 
 # Visualização no Heroku
 <https://lisemar-node-aula1.herokuapp.com/>
+
+# Branches
+Utilize a main
