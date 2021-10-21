@@ -9,7 +9,9 @@ const port = 80
 app.use(express.json())
 
 app.post('/login', async (req, res) => {
-  var user = req.body
+
+  try {
+    var user = req.body
   
   await repository.conectar();
   
@@ -32,6 +34,12 @@ app.post('/login', async (req, res) => {
       user.token = token
       return res.status(200).json(user);
   }
+} catch (err) {
+    return res.status(500).json({ code: 'ERROR_0007', message: err.message });
+}
+
+
+  
 })
 
 function validarToken(req, res, next) {
@@ -60,7 +68,3 @@ app.use(function (err, req, res, next) {
 app.listen((process.env.PORT || 5000), function(){
   console.log('listening on *:5000');
 });
-
-// app.listen(port, () => {
-//   console.log(`Aplicação rodando em http://localhost:${port}`)
-// })
