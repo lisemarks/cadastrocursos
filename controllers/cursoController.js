@@ -10,7 +10,7 @@ module.exports = () => {
             const result = await cursoModel.find({})
             return res.status(200).json(result);
         } catch (err) {
-            return res.status(500).json({ code: 'ERROR_0007', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0005', message: err.message });
         }
     }
 
@@ -19,7 +19,7 @@ module.exports = () => {
             const result = await cursoModel.find({}).populate("perguntas");
             return res.status(200).json(result);
         } catch (err) {
-            return res.status(500).json({ code: 'ERROR_0007', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0006', message: err.message });
         }
     }
 
@@ -28,9 +28,9 @@ module.exports = () => {
         const curso = new cursoModel(req.body);
         try {
             const result = await curso.save();
-            return res.status(200).json({ code: 'SUCESS_0003', message: 'Curso cadastrado com sucesso' });
+            return res.status(200).json({ code: 'SUCESS_0002', message: 'Curso cadastrado com sucesso' });
         } catch (err) {
-            return res.status(500).json({ code: 'ERROR_0006', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0007', message: err.message });
         }
     }
 
@@ -40,7 +40,7 @@ module.exports = () => {
             await cursoModel.updateOne({_id:req.body._id}, req.body)
             return res.status(200).json(req.body);
         } catch (err) {
-            return res.status(500).json({ code: 'ERROR_0006', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0008', message: err.message });
         }
     }
 
@@ -51,7 +51,7 @@ module.exports = () => {
             await cursoModel.updateOne({_id:req.body._id}, req.body)
             return res.status(200).json(req.body);
         } catch (err) {
-            return res.status(500).json({ code: 'ERROR_0006', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0009', message: err.message });
         }
         
     }
@@ -61,11 +61,11 @@ module.exports = () => {
             const id = req.params.id
             var client = await repository.conectar();
             await cursoModel.deleteOne({ _id: id });
-            return res.status(200).json({ code: 'SUCESS_0003', message: 'Registro excluído com sucesso' });
+            return res.status(200).json({ code: 'SUCESS_0003', message: 'Curso excluído com sucesso' });
         }
         catch(err)
         {
-            return res.status(500).json({ code: 'ERROR_0005', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0010', message: err.message });
         }
     }
 

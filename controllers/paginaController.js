@@ -10,7 +10,7 @@ module.exports = () => {
             const result = await paginaModel.find({})
             return res.status(200).json(result);
         } catch (err) {
-            return res.status(500).json({ code: 'ERROR_0007', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0011', message: err.message });
         }
     }
 
@@ -19,9 +19,9 @@ module.exports = () => {
         const pagina = new paginaModel(req.body);
         try {
             const result = await pagina.save();
-            return res.status(200).json({ code: 'SUCESS_0003', message: 'Página cadastrada com sucesso' });
+            return res.status(200).json({ code: 'SUCESS_0004', message: 'Página cadastrada com sucesso' });
         } catch (err) {
-            return res.status(500).json({ code: 'ERROR_0006', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0012', message: err.message });
         }
     }
 
@@ -31,7 +31,7 @@ module.exports = () => {
             await paginaModel.updateOne({_id:req.body._id}, req.body)
             return res.status(200).json(req.body);
         } catch (err) {
-            return res.status(500).json({ code: 'ERROR_0006', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0013', message: err.message });
         }
     }
 
@@ -40,11 +40,11 @@ module.exports = () => {
             const id = req.params.id
             var client = await repository.conectar();
             await paginaModel.deleteOne({ _id: id });
-            return res.status(200).json({ code: 'SUCESS_0003', message: 'Registro excluído com sucesso' });
+            return res.status(200).json({ code: 'SUCESS_0005', message: 'Página excluída com sucesso' });
         }
         catch(err)
         {
-            return res.status(500).json({ code: 'ERROR_0005', message: err.message });
+            return res.status(400).json({ code: 'ERROR_0014', message: err.message });
         }
     }
 
