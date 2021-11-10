@@ -7,7 +7,13 @@ const app = express()
 
 app.use(express.json())
 
-app.use(cors())
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+  app.use(cors())
+})
+
+// app.use(cors())
 
 app.post('/login', async (req, res) => {
 
@@ -21,7 +27,7 @@ app.post('/login', async (req, res) => {
   var userdb = await usuarioModel.findOne({ login: user.login, senha: user.senha }).exec()
   if (userdb === null) 
   {  
-    return res.status(403).json({ autenticacao: false, message: 'Usuário não encontrado.', code: 'ERROR_0001' });
+    return res.status(404).json({ autenticacao: false, message: 'Usuário não encontrado.', code: 'ERROR_0001' });
   }
   else
   {
