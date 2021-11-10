@@ -2,10 +2,12 @@ const express = require('express')
 const keySecret = 'BarberInCutCursos';
 const repository = require('./database/database')()
 var jwt = require('jsonwebtoken');
-
+var cors = require('cors')
 const app = express()
 
 app.use(express.json())
+
+app.use(cors())
 
 app.post('/login', async (req, res) => {
 
