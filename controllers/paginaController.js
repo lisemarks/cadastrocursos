@@ -48,5 +48,18 @@ module.exports = () => {
         }
     }
 
+    paginaController.buscarid = async (req, res) => {
+        try{
+            const id = req.params.id
+            var client = await repository.conectar();
+            const result = await paginaModel.findOne({ _id: id });
+            return res.status(200).json(result);
+        }
+        catch(err)
+        {
+            return res.status(400).json({ code: 'ERROR_0050', message: err.message });
+        }
+    }
+
     return paginaController;
 }
