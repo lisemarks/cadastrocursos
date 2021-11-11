@@ -28,7 +28,9 @@ module.exports = () => {
     paginaController.alterar = async (req, res) => {
         try {
             var client = await repository.conectar();
-            await paginaModel.updateOne({_id:req.body._id}, req.body)
+            const id = req.params.id
+            //await paginaModel.updateOne({_id:req.body._id}, req.body)
+            await paginaModel.updateOne({_id:id}, req.body)
             return res.status(200).json(req.body);
         } catch (err) {
             return res.status(400).json({ code: 'ERROR_0013', message: err.message });

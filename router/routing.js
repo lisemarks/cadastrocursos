@@ -18,7 +18,7 @@ routing.delete('/cursos/:id', cursoController.excluir)
 
 routing.get('/paginas', paginaController.listar)
 routing.post('/paginas', paginaController.salvar)
-routing.put('/paginas', paginaController.alterar)
+routing.put('/paginas/:id', paginaController.alterar)
 routing.delete('/paginas/:id', paginaController.excluir)
 routing.get('/paginas/:id', paginaController.buscarid)
 
